@@ -10,26 +10,46 @@ class Receive
     {
         var factory = new ConnectionFactory { HostName = "localhost" };
         using var connection = factory.CreateConnection();
-        using var channel = connection.CreateModel();
+        using var channelSAS = connection.CreateModel();
+        using var channelSWA = connection.CreateModel();
 
-        channel.QueueDeclare(queue: "hello",
+        channelSAS.QueueDeclare(queue: "SAStoAIRPORT",
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+        
+        channelSWA.QueueDeclare(queue: "SWAtoAIRPORT",
             durable: false,
             exclusive: false,
             autoDelete: false,
             arguments: null);
 
         Console.WriteLine(" [*] Waiting for messages.");
-
-        var consumer = new EventingBasicConsumer(channel);
-        consumer.Received += (model, ea) =>
+        channelSAS.BasicQos(0, 0, true);
+        var consumerSAS = new EventingBasicConsumer(channelSAS);
+        consumerSAS.Received += (model, ea) =>
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
             Console.WriteLine($" [x] Received {message}");
         };
-        channel.BasicConsume(queue: "hello",
+
+        var consumerSWA = new EventingBasicConsumer(channelSWA);
+        consumerSWA.Received += (model, ea) =>
+        {
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+            Console.WriteLine($" [x] Received {message}");
+        };
+        
+        channelSAS.BasicConsume(queue: "SAStoAIRPORT",
             autoAck: true,
-            consumer: consumer);
+            consumer: consumerSAS);
+        
+        channelSWA.BasicConsume(queue: "SWAtoAIRPORT",
+            autoAck: true,
+            consumer: consumerSWA);
 
         Console.WriteLine(" Press [enter] to exit.");
         Console.ReadLine();
