@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="AdapterExcel\.vs\AdapterExcel\FileContentIndex\f41f8381-5b4e-48d4-94ad-298a0f07fe58.vsidx" />
+      <Content Include="AdapterExcel\.vs\AdapterExcel\v14\.suo" />
+      <Content Include="AdapterExcel\.vs\AdapterExcel\v17\.suo" />
+      <Content Include="AdapterExcel\.vs\AdapterExcel\v17\DocumentLayout.backup.json" />
+      <Content Include="AdapterExcel\.vs\AdapterExcel\v17\DocumentLayout.json" />
+      <Content Include="AdapterExcel\AdapterExcel.sln" />
+    </ItemGroup>
+
+</Project>
