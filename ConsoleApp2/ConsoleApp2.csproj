@@ -8,6 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Include="Point-to-point\Point-to-point.csproj" />
+      <Content Include="Publisher-Subscriber\Publisher-Subscriber.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="EPPlus" Version="7.3.2" />
       <PackageReference Include="MiniExcel" Version="1.34.2" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
