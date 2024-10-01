@@ -31,13 +31,18 @@ channelReseq.BasicConsume(queue: "XmlQueue",
 Thread.Sleep(5000);
 
 messages.Sort((x, y) => x.SequenceNumber.CompareTo(y.SequenceNumber));
+channelReseq.QueueDeclare(queue: "XmlAggregatorQueue",
+    durable: false,
+    exclusive: false,
+    autoDelete: false,
+    arguments: null);
 
 foreach (var msg in messages)
 {
     
     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msg));
     channelReseq.BasicPublish(exchange: "",
-        routingKey: "XmlQueue",
+        routingKey: "XmlAggregatorQueue",
         mandatory: false,
         basicProperties: null,
         body: body);
